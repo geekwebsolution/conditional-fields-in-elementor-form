@@ -1,31 +1,10 @@
 <?php
-
-/**
- * The file that defines the core plugin class
- *
- * A class definition that includes attributes and functions used across both the
- * public-facing side of the site and the admin area.
- *
- * @link       https://geekcodelab.com/
- * @since      1.0.0
- *
- * @package    Conditional_Fields_In_Elementor_Form
- * @subpackage Conditional_Fields_In_Elementor_Form/includes
- */
-
+use Elementor\Widget_Base;
+use ElementorPro\Modules\Forms\Classes;
+use Elementor\Controls_Manager;
+use ElementorPro\Plugin;
 /**
  * The core plugin class.
- *
- * This is used to define internationalization, admin-specific hooks, and
- * public-facing site hooks.
- *
- * Also maintains the unique identifier of this plugin as well as the current
- * version of the plugin.
- *
- * @since      1.0.0
- * @package    Conditional_Fields_In_Elementor_Form
- * @subpackage Conditional_Fields_In_Elementor_Form/includes
- * @author     Geek Code Lab <support@geekcodelab.com>
  */
 class Conditional_Fields_In_Elementor_Form {
 
@@ -67,15 +46,14 @@ class Conditional_Fields_In_Elementor_Form {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		if ( defined( 'CONDITIONAL_FIELDS_IN_ELEMENTOR_FORM_VERSION' ) ) {
-			$this->version = CONDITIONAL_FIELDS_IN_ELEMENTOR_FORM_VERSION;
+		if ( defined( 'EF_CONDITIONAL_FIELDS_VERSION' ) ) {
+			$this->version = EF_CONDITIONAL_FIELDS_VERSION;
 		} else {
 			$this->version = '1.0.0';
 		}
 		$this->plugin_name = 'conditional-fields-in-elementor-form';
-
 		$this->load_dependencies();
-		$this->set_locale();
+		$this->define_conditional_logic();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
@@ -87,7 +65,6 @@ class Conditional_Fields_In_Elementor_Form {
 	 * Include the following files that make up the plugin:
 	 *
 	 * - Conditional_Fields_In_Elementor_Form_Loader. Orchestrates the hooks of the plugin.
-	 * - Conditional_Fields_In_Elementor_Form_i18n. Defines internationalization functionality.
 	 * - Conditional_Fields_In_Elementor_Form_Admin. Defines all hooks for the admin area.
 	 * - Conditional_Fields_In_Elementor_Form_Public. Defines all hooks for the public side of the site.
 	 *
@@ -103,44 +80,44 @@ class Conditional_Fields_In_Elementor_Form {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-conditional-fields-in-elementor-form-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-conditional-fields-loader.php';
 
 		/**
-		 * The class responsible for defining internationalization functionality
-		 * of the plugin.
+		 * The class responsible for defining all actions that occur for elementor form conditional logic
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-conditional-fields-in-elementor-form-i18n.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-conditional-fields-logic.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-conditional-fields-in-elementor-form-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-conditional-fields-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-conditional-fields-in-elementor-form-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-conditional-fields-public.php';
 
 		$this->loader = new Conditional_Fields_In_Elementor_Form_Loader();
 
 	}
 
 	/**
-	 * Define the locale for this plugin for internationalization.
-	 *
-	 * Uses the Conditional_Fields_In_Elementor_Form_i18n class in order to set the domain and to register the hook
-	 * with WordPress.
-	 *
-	 * @since    1.0.0
-	 * @access   private
+	 * Register all of the hooks related to elementor form conditional logic
 	 */
-	private function set_locale() {
+	private function define_conditional_logic() {
+		
+		$plugin_conditional_logic = new CFEF_Elementor_Conditional_Logic( $this->get_plugin_name(), $this->get_version() );
 
-		$plugin_i18n = new Conditional_Fields_In_Elementor_Form_i18n();
+		$this->loader->add_action( 'elementor-pro/forms/pre_render', $plugin_conditional_logic, 'pre_render', 10, 3 );
+        $this->loader->add_action( 'elementor/element/form/section_form_fields/before_section_end', $plugin_conditional_logic, 'add_pattern_field_control', PHP_INT_MAX, 2 );
+        $this->loader->add_action( 'elementor/controls/register', $plugin_conditional_logic, 'register_controls' );
+        $this->loader->add_action( 'elementor_pro/forms/validation/text', $plugin_conditional_logic, 'validation', 9, 3 );
+        $this->loader->add_filter( 'elementor_pro/forms/record/actions_before', $plugin_conditional_logic, 'custom_actions', 10, 2 );
 
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
+		$this->loader->add_action( 'elementor_pro/forms/fields/register', $plugin_conditional_logic, 'superaddons_add_new_html1_field' );
+		$this->loader->add_filter( 'elementor_pro/forms/field_types', $plugin_conditional_logic, 'superaddons_remove_html_field_type' );
+		$this->loader->add_action( 'elementor_pro/forms/actions/register', $plugin_conditional_logic, 'superaddons_register_new_form_actions' );
 	}
 
 	/**
@@ -156,7 +133,7 @@ class Conditional_Fields_In_Elementor_Form {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-
+		$this->loader->add_action( 'elementor/editor/before_enqueue_scripts', $plugin_admin, 'add_lib_backend' );
 	}
 
 	/**
@@ -172,7 +149,6 @@ class Conditional_Fields_In_Elementor_Form {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-
 	}
 
 	/**
@@ -214,5 +190,4 @@ class Conditional_Fields_In_Elementor_Form {
 	public function get_version() {
 		return $this->version;
 	}
-
 }

@@ -1,25 +1,6 @@
 <?php
-
-/**
- * Register all actions and filters for the plugin
- *
- * @link       https://geekcodelab.com/
- * @since      1.0.0
- *
- * @package    Conditional_Fields_In_Elementor_Form
- * @subpackage Conditional_Fields_In_Elementor_Form/includes
- */
-
 /**
  * Register all actions and filters for the plugin.
- *
- * Maintain a list of all hooks that are registered throughout
- * the plugin, and register them with the WordPress API. Call the
- * run function to execute the list of actions and filters.
- *
- * @package    Conditional_Fields_In_Elementor_Form
- * @subpackage Conditional_Fields_In_Elementor_Form/includes
- * @author     Geek Code Lab <support@geekcodelab.com>
  */
 class Conditional_Fields_In_Elementor_Form_Loader {
 
@@ -125,5 +106,4 @@ class Conditional_Fields_In_Elementor_Form_Loader {
 		}
 
 	}
-
 }

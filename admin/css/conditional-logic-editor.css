@@ -1,0 +1,20 @@
+.elementor-conditional-logic-sync {
+    background: #d3d3d3;
+    padding: 5px;
+    border-radius: 5px;
+    position: absolute;
+    right: 0;
+    z-index: 9999;
+    color: #000;
+}
+.elementor-conditional-logic-sync li {
+    cursor: pointer;
+    padding: 5px;
+}
+.elementor-conditional-logic-sync li:hover {
+    opacity: 0.7;
+}
+.elementor-control-type-select1 select option:disabled {
+    color: #a3a2a2;
+    font-weight: bold;
+}

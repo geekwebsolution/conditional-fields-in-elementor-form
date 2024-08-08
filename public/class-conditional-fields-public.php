@@ -1,24 +1,6 @@
 <?php
-
 /**
  * The public-facing functionality of the plugin.
- *
- * @link       https://geekcodelab.com/
- * @since      1.0.0
- *
- * @package    Conditional_Fields_In_Elementor_Form
- * @subpackage Conditional_Fields_In_Elementor_Form/public
- */
-
-/**
- * The public-facing functionality of the plugin.
- *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the public-facing stylesheet and JavaScript.
- *
- * @package    Conditional_Fields_In_Elementor_Form
- * @subpackage Conditional_Fields_In_Elementor_Form/public
- * @author     Geek Code Lab <support@geekcodelab.com>
  */
 class Conditional_Fields_In_Elementor_Form_Public {
 
@@ -73,7 +55,7 @@ class Conditional_Fields_In_Elementor_Form_Public {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/conditional-fields-in-elementor-form-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/conditional-logic.css', array(), $this->version, 'all' );
 
 	}
 
@@ -96,8 +78,7 @@ class Conditional_Fields_In_Elementor_Form_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/conditional-fields-in-elementor-form-public.js', array( 'jquery' ), $this->version, false );
-
+		wp_register_script( $this->plugin_name . '-conditional-logic', plugin_dir_url( __FILE__ ) . 'js/conditional-logic.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script($this->plugin_name . '-conditional-logic');
 	}
-
 }

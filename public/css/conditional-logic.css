@@ -1,0 +1,6 @@
+.hidden, .elementor-field-type-html1 label {
+    display: none !important;
+}
+.elementor-field-html-type {
+    width: 100%;
+}
