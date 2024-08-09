@@ -2,7 +2,7 @@
 /**
  * The admin-specific functionality of the plugin.
  */
-class Conditional_Fields_In_Elementor_Form_Admin {
+class CFIEF_Admin {
 
 	/**
 	 * The ID of this plugin.
@@ -37,8 +37,8 @@ class Conditional_Fields_In_Elementor_Form_Admin {
 	}
 
 	public function add_lib_backend() {
-		wp_enqueue_style( $this->plugin_name . '-conditional-logic-editor', plugin_dir_url( __FILE__ ) . 'css/conditional-logic-editor.css');
-        wp_register_script( $this->plugin_name . '-conditional-logic-editor', plugin_dir_url( __FILE__ ) . 'js/conditional-logic-editor.js', array('jquery'));
+		wp_enqueue_style( $this->plugin_name . '-conditional-logic-editor', plugin_dir_url( __FILE__ ) . 'css/conditional-logic-editor.css', array(), $this->version );
+        wp_register_script( $this->plugin_name . '-conditional-logic-editor', plugin_dir_url( __FILE__ ) . 'js/conditional-logic-editor.js', array('jquery'), $this->version, array("in_footer"=>true) );
         wp_enqueue_script( $this->plugin_name . '-conditional-logic-editor');
     }
 
@@ -53,10 +53,10 @@ class Conditional_Fields_In_Elementor_Form_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Conditional_Fields_In_Elementor_Form_Loader as all of the hooks are defined
+		 * defined in CFIEF_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Conditional_Fields_In_Elementor_Form_Loader will then create the relationship
+		 * The CFIEF_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
@@ -76,10 +76,10 @@ class Conditional_Fields_In_Elementor_Form_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Conditional_Fields_In_Elementor_Form_Loader as all of the hooks are defined
+		 * defined in CFIEF_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Conditional_Fields_In_Elementor_Form_Loader will then create the relationship
+		 * The CFIEF_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
@@ -87,5 +87,4 @@ class Conditional_Fields_In_Elementor_Form_Admin {
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/class-conditional-fields-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
-
 }

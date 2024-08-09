@@ -4,7 +4,7 @@ use ElementorPro\Modules\Forms\Classes;
 use Elementor\Controls_Manager;
 use ElementorPro\Plugin;
 
-class Superaddons_Elemntor_HTML1_Field extends \ElementorPro\Modules\Forms\Fields\Field_Base {
+class CFIEF_Elemntor_HTML1_Field extends \ElementorPro\Modules\Forms\Fields\Field_Base {
 	private $fixed_files_indices = false;
     
 	public function get_type() {
@@ -53,7 +53,7 @@ class Superaddons_Elemntor_HTML1_Field extends \ElementorPro\Modules\Forms\Field
 				'tab' => 'content',
 				'inner_tab' => 'form_fields_content_tab',
 				'tabs_wrapper' => 'form_fields_tabs',
-			],
+			]
 		];
 		$control_data['fields'] = $this->inject_field_controls( $control_data['fields'], $field_controls );
 		$widget->update_control( 'form_fields', $control_data );
@@ -70,8 +70,11 @@ class Superaddons_Elemntor_HTML1_Field extends \ElementorPro\Modules\Forms\Field
 		}
 		?>
 		<div class="elementor-field-html-type" id="form-field-field_<?php echo esc_html($item["_id"]) ?>">
-			<?php echo $item['field_html1']; ?>
-			
+			<?php
+			if(isset($item['field_html1']) && !empty($item['field_html1'])) {
+				echo wp_kses_post($item['field_html1']);
+			}
+			?>
 		</div>
 		<?php
 	}

@@ -8,82 +8,86 @@
 			  elementor_conditional_logic_load(form);
 			});
 		} );
+
 		window.addEventListener( 'elementor/frontend/init', () => {
 			$( ".elementor-form" ).each(function( index ) {
 			  var form = $(this).closest(".elementor-widget-container");
 			  elementor_conditional_logic_load(form);
 			});
 		} );
+
 		$("body").on("change",".elementor-form input,.elementor-form select,.elementor-form textarea",function(e){
     		var form = $(this).closest(".elementor-widget-container");
     		elementor_conditional_logic_load(form);
     	})
+
     	$("input").on("done_load_repeater",function(e,item){
     		$( ".elementor-form" ).each(function( index ) {
 			  var form = $(this).closest(".elementor-widget-container");
 			  elementor_conditional_logic_load(form);
 			});
     	})
+		
 		function elementor_conditional_logic_check_single(value_id,operator,value){
 			var rs = false;
 			switch(operator) {
-				  case "==":
-				    	if( value_id == value){
-				    		rs = true;
-				    	}	
-				    break;
-				  case "!=":
-					    if( value_id != value){
-					    		rs = true;
-					    }
-					    break;
-				  case "e":
-					    if( value_id == ""){
-					    		rs = true;
-					    }
-					    break;
-				  case "!e":
-					    if( value_id != ""){
-					    		rs = true;
-					    }
-					    break;
-				  case "c":
-					    if( value_id.includes(value)){
-					    		rs = true;
-					    }
-					    break;
-				   case "!c":
-					    if( !value_id.includes(value)){
-					    		rs = true;
-					    }
-				    break;
-				   case "^":
-					    if( value_id.startsWith(value)){
-					    		rs = true;
-					    }
-					    break;
-				   case "~":
-					    if( value_id.endsWith(value) ){
-					    		rs = true;
-					    }
-					    break;
-				   case ">":
-					    if( value_id > value){
-					    		rs = true;
-					    }
-					    break;
-				    case "<":
-					    if( value_id < value){
-					    		rs = true;
-					    }
-					    break;   
-				}
-				return rs;
+				case "==":
+					if( value_id == value){
+						rs = true;
+					}	
+					break;
+				case "!=":
+					if( value_id != value){
+						rs = true;
+					}
+					break;
+				case "e":
+					if( value_id == ""){
+						rs = true;
+					}
+					break;
+				case "!e":
+					if( value_id != ""){
+						rs = true;
+					}
+					break;
+				case "c":
+					if( value_id.includes(value)){
+						rs = true;
+					}
+					break;
+				case "!c":
+					if( !value_id.includes(value)){
+						rs = true;
+					}
+				break;
+				case "^":
+					if( value_id.startsWith(value)){
+						rs = true;
+					}
+					break;
+				case "~":
+					if( value_id.endsWith(value) ){
+						rs = true;
+					}
+					break;
+				case ">":
+					if( value_id > value){
+						rs = true;
+					}
+					break;
+				case "<":
+					if( value_id < value){
+						rs = true;
+					}
+					break;
+			}
+			return rs;
 		}
     	function elementor_conditional_logic_load(form){
     		var datas = $(".conditional_logic_data_js",form).val();
     		datas = jQuery.parseJSON(datas);
-			//console.log(datas);
+
     		$.each( datas, function( field_key, field_value ) {
 			  var field = elementor_conditional_logic_get_element_by_id(field_key,form);
 			  
@@ -95,8 +99,7 @@
 			  	 var value_id = elementor_conditional_logic_get_value_by_id(conditional_logic_values.conditional_logic_id,form);
 			  	 rs.push( elementor_conditional_logic_check_single(value_id,conditional_logic_values.conditional_logic_operator,conditional_logic_values.conditional_logic_value));
 			  })
-			  //console.log(rs);
-			 // console.log(field_key);
+			  
 			  if( trigger =="ALL"  ){
 			  		var check_rs = true;
 		  			$.each( rs, function( fkey, fvalue ) {
@@ -339,6 +342,7 @@
       	if( $(".elementor-field-group-"+id,form).hasClass("elementor-field-type-radio") ){
       		rs= $(".elementor-field-group-"+id +" input:checked",form).val();
       	}
+
       	else if( $(".elementor-field-group-"+id,form).hasClass("elementor-field-type-checkbox") ){
       		var data = [];
       		$(".elementor-field-group-"+id +" input:checked",form).each(function(){

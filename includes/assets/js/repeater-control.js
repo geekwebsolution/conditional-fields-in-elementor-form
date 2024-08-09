@@ -15,6 +15,6 @@
           event.stopPropagation();
         }
       });
-      elementor.addControlView('conditional_logic_repeater', RepeaterControlItemView);
+      elementor.addControlView('cfief_conditional_logic_repeater', RepeaterControlItemView);
     });
 })(jQuery);

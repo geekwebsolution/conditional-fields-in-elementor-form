@@ -1,12 +1,10 @@
 <?php
-use Elementor\Widget_Base;
-use ElementorPro\Modules\Forms\Classes;
 use Elementor\Controls_Manager;
 use ElementorPro\Plugin;
 /**
  * The conditional logic functionality of the plugin.
  */
-class CFEF_Elementor_Conditional_Logic {
+class CFIEF_Conditional_Logic {
 
     /**
 	 * Initialize the class and set its properties.
@@ -21,15 +19,20 @@ class CFEF_Elementor_Conditional_Logic {
 		$this->version = $version;
 	}
 
-    public function pre_render( $instance) {
+    public function form_pre_render( $instance ) {
         $datas = array();
         foreach ( $instance['form_fields'] as $item_index => $field ) :
             if ( ! empty( $field['conditional_logic'] ) && $field['conditional_logic'] == "yes" ) {
-                $datas[$field["custom_id"]] = array("display"=>$field['conditional_logic_display'],"trigger"=>$field['conditional_logic_trigger'],"datas"=>$field['conditional_logic_datas'] );
+                $datas[$field["custom_id"]] = array(
+                    "display" => $field['conditional_logic_display'],
+                    "trigger" => $field['conditional_logic_trigger'],
+                    "datas" => $field['conditional_logic_datas']
+                );
             }
         endforeach;
-        ?>
-            <input class="conditional_logic_data_js hidden" data-form-id="<?php echo esc_attr( $instance["form_name"] ) ?>" value="<?php echo htmlspecialchars(json_encode($datas)) ?>" />
+        $pre_render_val = wp_json_encode($datas); ?>
+
+        <input class="conditional_logic_data_js hidden" data-form-id="<?php echo esc_attr( $instance["form_name"] ) ?>" value="<?php echo esc_html(htmlspecialchars(wp_json_encode($datas))) ?>" />
         <?php
     }
 
@@ -42,7 +45,7 @@ class CFEF_Elementor_Conditional_Logic {
         );
     }
 
-    public function add_pattern_field_control($widget,$args ) {
+    public function add_conditional_field_control( $widget, $args ) {
         $elementor = \Elementor\Plugin::instance();
         $control_data = $elementor->controls_manager->get_control_from_stack( $widget->get_unique_name(), 'form_fields' );
         if ( is_wp_error( $control_data ) ) {
@@ -50,27 +53,23 @@ class CFEF_Elementor_Conditional_Logic {
         }
 
         $options_logic = array(
-            "==" => esc_html__("is","conditional-logic-for-elementor-forms"),
-            "!=" => esc_html__("not is","conditional-logic-for-elementor-forms"),
-            "e" => esc_html__("empty","conditional-logic-for-elementor-forms"),
-            "!e" => esc_html__("not empty","conditional-logic-for-elementor-forms"),
-            "c" => esc_html__("contains","conditional-logic-for-elementor-forms"),
-            "!c" => esc_html__("does not contain","conditional-logic-for-elementor-forms"),
-            "^" => esc_html__("starts with","conditional-logic-for-elementor-forms"),
-            "~" => esc_html__("ends with","conditional-logic-for-elementor-forms"),
-            ">" => esc_html__("greater than","conditional-logic-for-elementor-forms"),
-            "<" => esc_html__("less than","conditional-logic-for-elementor-forms"),
-            "array" => esc_html__("list array (a,b,c)","conditional-logic-for-elementor-forms"),
-            "!array" => esc_html__("not list array (a,b,c)","conditional-logic-for-elementor-forms"),
-            "array_contain" => esc_html__("list array contain (a,b,c)","conditional-logic-for-elementor-forms"),
-            "!array_contain" => esc_html__("not list array contain (a,b,c)","conditional-logic-for-elementor-forms"),
+            "==" => esc_html__("is equal ( == )","conditional-fields-in-elementor-form"),
+            "!=" => esc_html__("is not equal (!=)","conditional-fields-in-elementor-form"),
+            "e" => esc_html__("empty ('')","conditional-fields-in-elementor-form"),
+            "!e" => esc_html__("not empty","conditional-fields-in-elementor-form"),
+            "c" => esc_html__("contains","conditional-fields-in-elementor-form"),
+            "!c" => esc_html__("does not contain","conditional-fields-in-elementor-form"),
+            "^" => esc_html__("starts with","conditional-fields-in-elementor-form"),
+            "~" => esc_html__("ends with","conditional-fields-in-elementor-form"),
+            ">" => esc_html__("greater than (>)","conditional-fields-in-elementor-form"),
+            "<" => esc_html__("less than (<)","conditional-fields-in-elementor-form")
         );
         $options_pro = array();        
 
         $field_controls = [
                 'conditional_logic' => [
                     'name' => 'conditional_logic',
-                    'label' => esc_html__( 'Enable Conditional Logic', "conditional-logic-for-elementor-forms" ),
+                    'label' => esc_html__( 'Enable Conditional Logic', "conditional-fields-in-elementor-form" ),
                     'type' => Controls_Manager::SWITCHER,
                     'tab' => 'content',
                     'condition' => [
@@ -81,15 +80,15 @@ class CFEF_Elementor_Conditional_Logic {
                 ],
                 'conditional_logic_display' => [
                     'name' => 'conditional_logic_display',
-                    'label' => esc_html__( 'Display mode', "conditional-logic-for-elementor-forms" ),
+                    'label' => esc_html__( 'Display mode', "conditional-fields-in-elementor-form" ),
                     'type' => Controls_Manager::CHOOSE,
                     'options' => [
                         'show' => [
-                            'title' => esc_html__( 'Show if', "conditional-logic-for-elementor-forms" ),
+                            'title' => esc_html__( 'Show if', "conditional-fields-in-elementor-form" ),
                             'icon' => 'fa fa-eye',
                         ],
                         'hide' => [
-                            'title' => esc_html__( 'Hide if', "conditional-logic-for-elementor-forms" ),
+                            'title' => esc_html__( 'Hide if', "conditional-fields-in-elementor-form" ),
                             'icon' => 'fa fa-eye-slash',
                         ],
                     ],
@@ -103,11 +102,11 @@ class CFEF_Elementor_Conditional_Logic {
                 ],
                 'conditional_logic_trigger' => [
                     'name' => 'conditional_logic_trigger',
-                    'label' => esc_html__( 'When to Trigger', "conditional-logic-for-elementor-forms" ),
+                    'label' => esc_html__( 'When to Trigger', "conditional-fields-in-elementor-form" ),
                     'type' => Controls_Manager::SELECT,
                     'options' => [
-                        "ALL"=>"ALL",
-                        "ANY"=>"ANY"
+                        "ALL"=>"ALL - AND Conditions",
+                        "ANY"=>"ANY - OR Conditions"
                     ],
                     'default' => 'ALL',
                     'tab' => 'content',
@@ -119,22 +118,22 @@ class CFEF_Elementor_Conditional_Logic {
                 ],
                 'conditional_logic_datas' => array(
                 'name'           => 'conditional_logic_datas',
-                'label'          => esc_html__( 'Fields if', "conditional-logic-for-elementor-forms" ),
-                'type'           => 'conditional_logic_repeater',
+                'label'          => esc_html__( 'Fields if', "conditional-fields-in-elementor-form" ),
+                'type'           => 'cfief_conditional_logic_repeater',
                 'tab'            => 'content',
                 'inner_tab'      => 'form_fields_advanced_tab',
                 'tabs_wrapper'   => 'form_fields_tabs',
                 'fields'         => [
                     [
                         'name' => 'conditional_logic_id',
-                        'label' => esc_html__( 'Field ID', "conditional-logic-for-elementor-forms" ),
+                        'label' => esc_html__( 'Field ID', "conditional-fields-in-elementor-form" ),
                         'type' => Controls_Manager::TEXT,
                         'label_block' => true,
                         'default' => '',
                     ],
                      [
                         'name' => 'conditional_logic_operator',
-                        'label' => esc_html__( 'Operator', "conditional-logic-for-elementor-forms" ),
+                        'label' => esc_html__( 'Operator', "conditional-fields-in-elementor-form" ),
                         'type' => 'select1',
                         'label_block' => true,
                         'options' => $options_logic,
@@ -143,7 +142,7 @@ class CFEF_Elementor_Conditional_Logic {
                     ],
                     [
                         'name' => 'conditional_logic_value',
-                        'label' => esc_html__( 'Value to compare', "conditional-logic-for-elementor-forms" ),
+                        'label' => esc_html__( 'Value to compare', "conditional-fields-in-elementor-form" ),
                         'type' => Controls_Manager::TEXT,
                         'label_block' => true,
                         'default' => '',
@@ -279,7 +278,7 @@ class CFEF_Elementor_Conditional_Logic {
         $record->remove_field($field["custom_id"]);
     }
 
-    public function validation($field, $record, $ajax_handler) {
+    public function form_fields_validation($field, $record, $ajax_handler) {
         if($this->check_validate == false){
             $form_settings = $record->get("form_settings");
             $form_fields = $record->get("fields");
@@ -329,7 +328,6 @@ class CFEF_Elementor_Conditional_Logic {
                         if( $display == "show" ) {
                             if( $check_rs == true ){
                             }else{
-                                
                                 $this->remove_field_in_repeater($field,$record);
                             }
                         }else{
@@ -371,32 +369,32 @@ class CFEF_Elementor_Conditional_Logic {
          }
     }
 
-    public function register_controls( $controls_manager ) {
+    public function form_fields_register_controls( $controls_manager ) {
         include plugin_dir_path( __FILE__ ) . 'controls/repeater.php';
         include plugin_dir_path( __FILE__ ) . 'controls/select.php';
-        $controls_manager->register( new Conditional_Repeater_Control() );
-        $controls_manager->register( new Superaddons_Control_Select() );
+        $controls_manager->register( new CFIEF_Repeater_Control() );
+        $controls_manager->register( new CFIEF_Control_Select() );
     }
 
     public function custom_actions($record, $form) {
         return $record;
     }
 
-    public function superaddons_add_new_html1_field($form_fields_registrar){
+    public function add_new_html1_field($form_fields_registrar){
         include plugin_dir_path( __FILE__ ) . 'class-html-condition.php';
-        $form_fields_registrar->register( new Superaddons_Elemntor_HTML1_Field() );
+        $form_fields_registrar->register( new CFIEF_Elemntor_HTML1_Field() );
 	}
 
-	public function superaddons_remove_html_field_type($fields){
+	public function remove_html_field_type($fields){
 		unset( $fields['html'] );
 		return $fields;
 	}
 
-	function superaddons_register_new_form_actions($form_actions_registrar){
+	function register_new_form_actions($form_actions_registrar){
 		include plugin_dir_path( __FILE__ ) . 'class-email-action-logic.php';
 		include plugin_dir_path( __FILE__ ) . 'class-redirect-action-logic.php';
 
-	    $form_actions_registrar->register( new Superaddons_Email_Conditional_Logic() );
-	    $form_actions_registrar->register( new Superaddons_Redirect_Conditional_Logic() );
+	    $form_actions_registrar->register( new CFIEF_Email_Conditional_Logic() );
+	    $form_actions_registrar->register( new CFIEF_Redirect_Conditional_Logic() );
 	}
 }

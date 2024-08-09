@@ -1,8 +1,7 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 use ElementorPro\Plugin;
-
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
 /**
  * Elementor select control.
  *
@@ -12,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  *
  * @since 1.0.0
  */
-class Superaddons_Control_Select extends \Elementor\Base_Data_Control {
+class CFIEF_Control_Select extends \Elementor\Base_Data_Control {
 
 	/**
 	 * Get select control type.

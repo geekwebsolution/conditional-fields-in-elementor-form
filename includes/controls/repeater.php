@@ -1,20 +1,15 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 use ElementorPro\Plugin;
-class Conditional_Repeater_Control extends \Elementor\Control_Repeater {
+class CFIEF_Repeater_Control extends \Elementor\Control_Repeater {
 
 	public function get_type() {
-		return 'conditional_logic_repeater';
+		return 'cfief_conditional_logic_repeater';
 	}
 
 	public function enqueue() {
-		wp_enqueue_script(
-			'conditional_logic_repeater',
-			plugin_dir_url( __DIR__ ) .'assets/js/repeater-control.js',
-		);
-
-	
+		wp_enqueue_script( 'cfief_conditional_logic_repeater', plugin_dir_url( __DIR__ ) .'assets/js/repeater-control.js', array('jquery'), CFIEF_VERSION, array("in_footer"=>true) );
 	}
 	public function get_default_value() {
 		return [];
@@ -135,7 +130,7 @@ class Conditional_Repeater_Control extends \Elementor\Control_Repeater {
 					<# if ( data.button_text ) { #>
 						<?php echo esc_html__( '{{{ data.button_text }}}', 'elementor' ); ?>
 					<# } else { #>
-						<?php echo esc_html__( 'Add', "conditional-logic-for-elementor-forms" ); ?>
+						<?php echo esc_html__( 'Add', "conditional-fields-in-elementor-form" ); ?>
 					<# } #>
 				</button>
 			</div>

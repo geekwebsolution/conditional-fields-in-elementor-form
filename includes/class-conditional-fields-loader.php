@@ -2,7 +2,7 @@
 /**
  * Register all actions and filters for the plugin.
  */
-class Conditional_Fields_In_Elementor_Form_Loader {
+class CFIEF_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

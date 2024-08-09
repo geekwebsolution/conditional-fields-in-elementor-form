@@ -14,7 +14,7 @@ class Conditional_Fields_In_Elementor_Form {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Conditional_Fields_In_Elementor_Form_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      CFIEF_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -46,8 +46,8 @@ class Conditional_Fields_In_Elementor_Form {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		if ( defined( 'EF_CONDITIONAL_FIELDS_VERSION' ) ) {
-			$this->version = EF_CONDITIONAL_FIELDS_VERSION;
+		if ( defined( 'CFIEF_VERSION' ) ) {
+			$this->version = CFIEF_VERSION;
 		} else {
 			$this->version = '1.0.0';
 		}
@@ -64,9 +64,10 @@ class Conditional_Fields_In_Elementor_Form {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - Conditional_Fields_In_Elementor_Form_Loader. Orchestrates the hooks of the plugin.
-	 * - Conditional_Fields_In_Elementor_Form_Admin. Defines all hooks for the admin area.
-	 * - Conditional_Fields_In_Elementor_Form_Public. Defines all hooks for the public side of the site.
+	 * - CFIEF_Loader. Orchestrates the hooks of the plugin.
+	 * - CFIEF_Conditional_Logic. Defines all hooks for Elementor Form Conditional Logic.
+	 * - CFIEF_Admin. Defines all hooks for the admin area.
+	 * - CFIEF_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -98,8 +99,7 @@ class Conditional_Fields_In_Elementor_Form {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-conditional-fields-public.php';
 
-		$this->loader = new Conditional_Fields_In_Elementor_Form_Loader();
-
+		$this->loader = new CFIEF_Loader();
 	}
 
 	/**
@@ -107,17 +107,17 @@ class Conditional_Fields_In_Elementor_Form {
 	 */
 	private function define_conditional_logic() {
 		
-		$plugin_conditional_logic = new CFEF_Elementor_Conditional_Logic( $this->get_plugin_name(), $this->get_version() );
+		$plugin_conditional_logic = new CFIEF_Conditional_Logic( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->add_action( 'elementor-pro/forms/pre_render', $plugin_conditional_logic, 'pre_render', 10, 3 );
-        $this->loader->add_action( 'elementor/element/form/section_form_fields/before_section_end', $plugin_conditional_logic, 'add_pattern_field_control', PHP_INT_MAX, 2 );
-        $this->loader->add_action( 'elementor/controls/register', $plugin_conditional_logic, 'register_controls' );
-        $this->loader->add_action( 'elementor_pro/forms/validation/text', $plugin_conditional_logic, 'validation', 9, 3 );
+		$this->loader->add_action( 'elementor-pro/forms/pre_render', $plugin_conditional_logic, 'form_pre_render', 10, 3 );
+        $this->loader->add_action( 'elementor/element/form/section_form_fields/before_section_end', $plugin_conditional_logic, 'add_conditional_field_control', PHP_INT_MAX, 2 );
+        $this->loader->add_action( 'elementor/controls/register', $plugin_conditional_logic, 'form_fields_register_controls' );
+        $this->loader->add_action( 'elementor_pro/forms/validation/text', $plugin_conditional_logic, 'form_fields_validation', 9, 3 );
         $this->loader->add_filter( 'elementor_pro/forms/record/actions_before', $plugin_conditional_logic, 'custom_actions', 10, 2 );
 
-		$this->loader->add_action( 'elementor_pro/forms/fields/register', $plugin_conditional_logic, 'superaddons_add_new_html1_field' );
-		$this->loader->add_filter( 'elementor_pro/forms/field_types', $plugin_conditional_logic, 'superaddons_remove_html_field_type' );
-		$this->loader->add_action( 'elementor_pro/forms/actions/register', $plugin_conditional_logic, 'superaddons_register_new_form_actions' );
+		$this->loader->add_action( 'elementor_pro/forms/fields/register', $plugin_conditional_logic, 'add_new_html1_field' );
+		$this->loader->add_filter( 'elementor_pro/forms/field_types', $plugin_conditional_logic, 'remove_html_field_type' );
+		$this->loader->add_action( 'elementor_pro/forms/actions/register', $plugin_conditional_logic, 'register_new_form_actions' );
 	}
 
 	/**
@@ -129,7 +129,7 @@ class Conditional_Fields_In_Elementor_Form {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Conditional_Fields_In_Elementor_Form_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new CFIEF_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
@@ -145,7 +145,7 @@ class Conditional_Fields_In_Elementor_Form {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Conditional_Fields_In_Elementor_Form_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new CFIEF_Public( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
@@ -175,7 +175,7 @@ class Conditional_Fields_In_Elementor_Form {
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
-	 * @return    Conditional_Fields_In_Elementor_Form_Loader    Orchestrates the hooks of the plugin.
+	 * @return    CFIEF_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
 		return $this->loader;

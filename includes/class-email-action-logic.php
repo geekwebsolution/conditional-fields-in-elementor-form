@@ -5,7 +5,7 @@ use ElementorPro\Modules\Forms\Classes\Ajax_Handler;
 use ElementorPro\Modules\Forms\actions\Email2;
 use ElementorPro\Modules\Forms\Classes\Form_Record;
 
-class Superaddons_Email_Conditional_Logic extends Email2 {
+class CFIEF_Email_Conditional_Logic extends Email2 {
 	public function get_name() {
 		return 'email_conditional_logic';
 	}
@@ -24,21 +24,17 @@ class Superaddons_Email_Conditional_Logic extends Email2 {
 
 	public function register_settings_section( $widget ) {
         $options_logic = array(
-                        "==" => esc_html__("is","conditional-logic-for-elementor-forms"),
-                        "!=" => esc_html__("not is","conditional-logic-for-elementor-forms"),
-                        "e" => esc_html__("empty","conditional-logic-for-elementor-forms"),
-                        "!e" => esc_html__("not empty","conditional-logic-for-elementor-forms"),
-                        "c" => esc_html__("contains","conditional-logic-for-elementor-forms"),
-                        "!c" => esc_html__("does not contain","conditional-logic-for-elementor-forms"),
-                        "^" => esc_html__("starts with","conditional-logic-for-elementor-forms"),
-                        "~" => esc_html__("ends with","conditional-logic-for-elementor-forms"),
-                        ">" => esc_html__("greater than","conditional-logic-for-elementor-forms"),
-                        "<" => esc_html__("less than","conditional-logic-for-elementor-forms"),
-                        "array" => esc_html__("list array (a,b,c)","conditional-logic-for-elementor-forms"),
-                        "!array" => esc_html__("not list array (a,b,c)","conditional-logic-for-elementor-forms"),
-                        "array_contain" => esc_html__("list array contain (a,b,c)","conditional-logic-for-elementor-forms"),
-                        "!array_contain" => esc_html__("not list array contain (a,b,c)","conditional-logic-for-elementor-forms"),
-                    );
+			"==" => esc_html__("is equal ( == )","conditional-fields-in-elementor-form"),
+            "!=" => esc_html__("is not equal (!=)","conditional-fields-in-elementor-form"),
+            "e" => esc_html__("empty ('')","conditional-fields-in-elementor-form"),
+            "!e" => esc_html__("not empty","conditional-fields-in-elementor-form"),
+            "c" => esc_html__("contains","conditional-fields-in-elementor-form"),
+            "!c" => esc_html__("does not contain","conditional-fields-in-elementor-form"),
+            "^" => esc_html__("starts with","conditional-fields-in-elementor-form"),
+            "~" => esc_html__("ends with","conditional-fields-in-elementor-form"),
+            ">" => esc_html__("greater than (>)","conditional-fields-in-elementor-form"),
+            "<" => esc_html__("less than (<)","conditional-fields-in-elementor-form")
+		);
 
 
 		$widget->start_controls_section(
@@ -87,7 +83,7 @@ class Superaddons_Email_Conditional_Logic extends Email2 {
 				'type' => Controls_Manager::TEXTAREA,
 				'default' => '[all-fields]',
 				'placeholder' => '[all-fields]',
-				'description' => sprintf( esc_html__( 'By default, all form fields are sent via %s shortcode. To customize sent fields, copy the shortcode that appears inside each field and paste it above.', 'elementor-pro' ), '<code>[all-fields]</code>' ),
+				'description' => sprintf( __( 'By default, all form fields are sent via %s shortcode. To customize sent fields, copy the shortcode that appears inside each field and paste it above.', 'elementor-pro' ), '<code>[all-fields]</code>' ),
 				'render_type' => 'none',
 			]
 		);
@@ -201,15 +197,15 @@ class Superaddons_Email_Conditional_Logic extends Email2 {
 		$widget->add_control(
 			$this->get_control_id( 'email_conditional_logic_display' ),
 			[
-				'label' => esc_html__( 'Display mode', "conditional-logic-for-elementor-forms" ),
+				'label' => esc_html__( 'Display mode', "conditional-fields-in-elementor-form" ),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     'show' => [
-                        'title' => esc_html__( 'Send if', "conditional-logic-for-elementor-forms" ),
+                        'title' => esc_html__( 'Send if', "conditional-fields-in-elementor-form" ),
                         'icon' => 'fa fa-eye',
                     ],
                     'hide' => [
-                        'title' => esc_html__( 'Disable if', "conditional-logic-for-elementor-forms" ),
+                        'title' => esc_html__( 'Disable if', "conditional-fields-in-elementor-form" ),
                         'icon' => 'fa fa-eye-slash',
                     ],
                 ],
@@ -222,7 +218,7 @@ class Superaddons_Email_Conditional_Logic extends Email2 {
 		$widget->add_control(
 			$this->get_control_id( 'email_conditional_logic_trigger' ),
 			[
-				'label' => esc_html__( 'When to Trigger', "conditional-logic-for-elementor-forms" ),
+				'label' => esc_html__( 'When to Trigger', "conditional-fields-in-elementor-form" ),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
                     "ALL"=>"ALL",
@@ -238,19 +234,19 @@ class Superaddons_Email_Conditional_Logic extends Email2 {
 			$this->get_control_id( 'email_conditional_logic_datas' ),
 			[
 				'name'           => 'email_conditional_logic_datas',
-                'label'          => esc_html__( 'Fields if', "conditional-logic-for-elementor-forms" ),
-                'type'           => 'conditional_logic_repeater',
+                'label'          => esc_html__( 'Fields if', "conditional-fields-in-elementor-form" ),
+                'type'           => 'cfief_conditional_logic_repeater',
                 'fields'         => [
                     [
                         'name' => 'conditional_logic_id',
-                        'label' => esc_html__( 'Field ID', "conditional-logic-for-elementor-forms" ),
+                        'label' => esc_html__( 'Field ID', "conditional-fields-in-elementor-form" ),
                         'type' => Controls_Manager::TEXT,
                         'label_block' => true,
                         'default' => '',
                     ],
                      [
                         'name' => 'conditional_logic_operator',
-                        'label' => esc_html__( 'Operator', "conditional-logic-for-elementor-forms" ),
+                        'label' => esc_html__( 'Operator', "conditional-fields-in-elementor-form" ),
                         'type' => Controls_Manager::SELECT,
                         'label_block' => true,
                         'options' => $options_logic,
@@ -258,7 +254,7 @@ class Superaddons_Email_Conditional_Logic extends Email2 {
                     ],
                     [
                         'name' => 'conditional_logic_value',
-                        'label' => esc_html__( 'Value to compare', "conditional-logic-for-elementor-forms" ),
+                        'label' => esc_html__( 'Value to compare', "conditional-fields-in-elementor-form" ),
                         'type' => Controls_Manager::TEXT,
                         'label_block' => true,
                         'default' => '',
@@ -437,7 +433,7 @@ class Superaddons_Email_Conditional_Logic extends Email2 {
 
 				$ajax_handler->add_error_message( $message );
 
-				throw new \Exception( $message );
+				throw new \Exception( esc_html( $message ) );
 			}
 		}
 	}

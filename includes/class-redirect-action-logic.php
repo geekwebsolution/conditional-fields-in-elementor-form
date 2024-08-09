@@ -3,7 +3,7 @@ use Elementor\Controls_Manager;
 use ElementorPro\Modules\Forms\actions\Redirect;
 use Elementor\Modules\DynamicTags\Module as TagsModule;
 
-class Superaddons_Redirect_Conditional_Logic extends Redirect {
+class CFIEF_Redirect_Conditional_Logic extends Redirect {
 	public function get_name() {
 		return 'redirect_logic';
 	}
@@ -15,20 +15,16 @@ class Superaddons_Redirect_Conditional_Logic extends Redirect {
 	}
 	public function register_settings_section( $widget ) {
         $options_logic = array(
-            "==" => esc_html__("is","conditional-logic-for-elementor-forms"),
-            "!=" => esc_html__("not is","conditional-logic-for-elementor-forms"),
-            "e" => esc_html__("empty","conditional-logic-for-elementor-forms"),
-            "!e" => esc_html__("not empty","conditional-logic-for-elementor-forms"),
-            "c" => esc_html__("contains","conditional-logic-for-elementor-forms"),
-            "!c" => esc_html__("does not contain","conditional-logic-for-elementor-forms"),
-            "^" => esc_html__("starts with","conditional-logic-for-elementor-forms"),
-            "~" => esc_html__("ends with","conditional-logic-for-elementor-forms"),
-            ">" => esc_html__("greater than","conditional-logic-for-elementor-forms"),
-            "<" => esc_html__("less than","conditional-logic-for-elementor-forms"),
-            "array" => esc_html__("list array (a,b,c)","conditional-logic-for-elementor-forms"),
-            "!array" => esc_html__("not list array (a,b,c)","conditional-logic-for-elementor-forms"),
-            "array_contain" => esc_html__("list array contain (a,b,c)","conditional-logic-for-elementor-forms"),
-            "!array_contain" => esc_html__("not list array contain (a,b,c)","conditional-logic-for-elementor-forms"),
+            "==" => esc_html__("is equal ( == )","conditional-fields-in-elementor-form"),
+            "!=" => esc_html__("is not equal (!=)","conditional-fields-in-elementor-form"),
+            "e" => esc_html__("empty ('')","conditional-fields-in-elementor-form"),
+            "!e" => esc_html__("not empty","conditional-fields-in-elementor-form"),
+            "c" => esc_html__("contains","conditional-fields-in-elementor-form"),
+            "!c" => esc_html__("does not contain","conditional-fields-in-elementor-form"),
+            "^" => esc_html__("starts with","conditional-fields-in-elementor-form"),
+            "~" => esc_html__("ends with","conditional-fields-in-elementor-form"),
+            ">" => esc_html__("greater than (>)","conditional-fields-in-elementor-form"),
+            "<" => esc_html__("less than (<)","conditional-fields-in-elementor-form")
         );
         $options_pro = array();
 
@@ -53,15 +49,15 @@ class Superaddons_Redirect_Conditional_Logic extends Redirect {
 		$widget->add_control(
 			$this->get_control_id( 'redirect_conditional_logic_display' ),
 			[
-				'label' => esc_html__( 'Display mode', "conditional-logic-for-elementor-forms" ),
+				'label' => esc_html__( 'Display mode', "conditional-fields-in-elementor-form" ),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     'show' => [
-                        'title' => esc_html__( 'Redirect if', "conditional-logic-for-elementor-forms" ),
+                        'title' => esc_html__( 'Redirect if', "conditional-fields-in-elementor-form" ),
                         'icon' => 'fa fa-eye',
                     ],
                     'hide' => [
-                        'title' => esc_html__( 'Disable if', "conditional-logic-for-elementor-forms" ),
+                        'title' => esc_html__( 'Disable if', "conditional-fields-in-elementor-form" ),
                         'icon' => 'fa fa-eye-slash',
                     ],
                 ],
@@ -74,7 +70,7 @@ class Superaddons_Redirect_Conditional_Logic extends Redirect {
 		$widget->add_control(
 			$this->get_control_id( 'redirect_conditional_logic_trigger' ),
 			[
-				'label' => esc_html__( 'When to Trigger', "conditional-logic-for-elementor-forms" ),
+				'label' => esc_html__( 'When to Trigger', "conditional-fields-in-elementor-form" ),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
                     "ALL"=>"ALL",
@@ -90,19 +86,19 @@ class Superaddons_Redirect_Conditional_Logic extends Redirect {
 			$this->get_control_id( 'redirect_conditional_logic_datas' ),
 			[
 				'name'           => 'redirect_conditional_logic_datas',
-                'label'          => esc_html__( 'Fields if', "conditional-logic-for-elementor-forms" ),
-                'type'           => 'conditional_logic_repeater',
+                'label'          => esc_html__( 'Fields if', "conditional-fields-in-elementor-form" ),
+                'type'           => 'cfief_conditional_logic_repeater',
                 'fields'         => [
                     [
                         'name' => 'conditional_logic_id',
-                        'label' => esc_html__( 'Field ID', "conditional-logic-for-elementor-forms" ),
+                        'label' => esc_html__( 'Field ID', "conditional-fields-in-elementor-form" ),
                         'type' => Controls_Manager::TEXT,
                         'label_block' => true,
                         'default' => '',
                     ],
                      [
                         'name' => 'conditional_logic_operator',
-                        'label' => esc_html__( 'Operator', "conditional-logic-for-elementor-forms" ),
+                        'label' => esc_html__( 'Operator', "conditional-fields-in-elementor-form" ),
                         'type' => Controls_Manager::SELECT,
                         'label_block' => true,
                         'options' => $options_logic,
@@ -111,7 +107,7 @@ class Superaddons_Redirect_Conditional_Logic extends Redirect {
                     ],
                     [
                         'name' => 'conditional_logic_value',
-                        'label' => esc_html__( 'Value to compare', "conditional-logic-for-elementor-forms" ),
+                        'label' => esc_html__( 'Value to compare', "conditional-fields-in-elementor-form" ),
                         'type' => Controls_Manager::TEXT,
                         'label_block' => true,
                         'default' => '',

@@ -3,7 +3,10 @@
 
 	$( document ).ready( function () { 
         $("body").on("click",'.elementor-control-tag-area[data-setting="conditional_logic_id"]',function(e){
+            if( $(this).data("check") != "ok" ) {
               $(this).after('<div class="elementor-control-dynamic-switcher elementor-control-unit-1 elementor-conditional-logic-add-tag" data-tooltip="add Tags" original-title=""><i class="eicon-database" aria-hidden="true"></i><span class="elementor-screen-only">Dynamic Tags</span></div>');
+              $(this).data("check","ok");
+            }
         }) 
         $("body").on("click",".elementor-conditional-logic-add-tag",function(e){
            var html ='<ul class="elementor-conditional-logic-sync">';

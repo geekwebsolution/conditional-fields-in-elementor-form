@@ -2,7 +2,7 @@
 /**
  * The public-facing functionality of the plugin.
  */
-class Conditional_Fields_In_Elementor_Form_Public {
+class CFIEF_Public {
 
 	/**
 	 * The ID of this plugin.
@@ -33,7 +33,6 @@ class Conditional_Fields_In_Elementor_Form_Public {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-
 	}
 
 	/**
@@ -47,10 +46,10 @@ class Conditional_Fields_In_Elementor_Form_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Conditional_Fields_In_Elementor_Form_Loader as all of the hooks are defined
+		 * defined in CFIEF_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Conditional_Fields_In_Elementor_Form_Loader will then create the relationship
+		 * The CFIEF_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
@@ -70,10 +69,10 @@ class Conditional_Fields_In_Elementor_Form_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Conditional_Fields_In_Elementor_Form_Loader as all of the hooks are defined
+		 * defined in CFIEF_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Conditional_Fields_In_Elementor_Form_Loader will then create the relationship
+		 * The CFIEF_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
