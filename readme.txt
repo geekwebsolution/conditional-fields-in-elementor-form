@@ -39,9 +39,6 @@ PLUGIN FEATURES
 * **Conditionally Redirect After Submission**
  Conditionally redirect your Elementor form to a specific URL after submission based on met conditions, such as redirecting to URL-1 if condition-1 is true, otherwise to URL-2.
 
-* **Apply Condition on Submit Button**
- Easily apply conditional logic to the Elementor form submit button to enable/disable or hide/show it based on user input values. Use this feature to block spam, such as disabling the submit button if illegal words are added in a textarea.
-
 * **Send Email Conditionally**
  Send different emails to various user types based on their inputs in the Elementor form. Design two to three types of emails and send them to users based on conditions matching their inputs.
 
@@ -50,10 +47,11 @@ PLUGIN FEATURES
 
 == Screenshots ==
 
-1. 
-2.
-3.
-
+1. Conditionally show or hide Elementor form fields
+2. How to add conditional logic to an Elementor form
+3. Trigger conditions using multiple comparison operators
+4. Conditionally redirect the form based on user input
+5. Conditionally send email based on user input
 
 == Changelog ==
 

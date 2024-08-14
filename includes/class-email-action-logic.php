@@ -7,11 +7,11 @@ use ElementorPro\Modules\Forms\Classes\Form_Record;
 
 class CFIEF_Email_Conditional_Logic extends Email2 {
 	public function get_name() {
-		return 'email_conditional_logic';
+		return 'cfief_email_conditional_logic';
 	}
 
 	public function get_label() {
-		return esc_html__( 'Email Conditional Logic', 'elementor-pro' );
+		return esc_html__( 'Email Conditional Logic', 'conditional-fields-in-elementor-form' );
 	}
 
 	protected function get_control_id( $control_id ) {
@@ -51,23 +51,23 @@ class CFIEF_Email_Conditional_Logic extends Email2 {
 		$widget->add_control(
 			$this->get_control_id( 'email_to' ),
 			[
-				'label' => esc_html__( 'To', 'elementor-pro' ),
+				'label' => esc_html__( 'To', 'conditional-fields-in-elementor-form' ),
 				'type' => Controls_Manager::TEXT,
 				'default' => get_option( 'admin_email' ),
 				'placeholder' => get_option( 'admin_email' ),
 				'label_block' => true,
-				'title' => esc_html__( 'Separate emails with commas', 'elementor-pro' ),
+				'title' => esc_html__( 'Separate emails with commas', 'conditional-fields-in-elementor-form' ),
 				'render_type' => 'none',
 			]
 		);
 
 		/* translators: %s: Site title. */
-		$default_message = sprintf( esc_html__( 'New message from "%s"', 'elementor-pro' ), get_option( 'blogname' ) );
+		$default_message = sprintf( esc_html__( 'New message from "%s"', 'conditional-fields-in-elementor-form' ), get_option( 'blogname' ) );
 
 		$widget->add_control(
 			$this->get_control_id( 'email_subject' ),
 			[
-				'label' => esc_html__( 'Subject', 'elementor-pro' ),
+				'label' => esc_html__( 'Subject', 'conditional-fields-in-elementor-form' ),
 				'type' => Controls_Manager::TEXT,
 				'default' => $default_message,
 				'placeholder' => $default_message,
@@ -79,11 +79,11 @@ class CFIEF_Email_Conditional_Logic extends Email2 {
 		$widget->add_control(
 			$this->get_control_id( 'email_content' ),
 			[
-				'label' => esc_html__( 'Message', 'elementor-pro' ),
+				'label' => esc_html__( 'Message', 'conditional-fields-in-elementor-form' ),
 				'type' => Controls_Manager::TEXTAREA,
 				'default' => '[all-fields]',
 				'placeholder' => '[all-fields]',
-				'description' => sprintf( __( 'By default, all form fields are sent via %s shortcode. To customize sent fields, copy the shortcode that appears inside each field and paste it above.', 'elementor-pro' ), '<code>[all-fields]</code>' ),
+				'description' => sprintf( __( 'By default, all form fields are sent via %s shortcode. To customize sent fields, copy the shortcode that appears inside each field and paste it above.', 'conditional-fields-in-elementor-form' ), '<code>[all-fields]</code>' ),
 				'render_type' => 'none',
 			]
 		);
@@ -93,7 +93,7 @@ class CFIEF_Email_Conditional_Logic extends Email2 {
 		$widget->add_control(
 			$this->get_control_id( 'email_from' ),
 			[
-				'label' => esc_html__( 'From Email', 'elementor-pro' ),
+				'label' => esc_html__( 'From Email', 'conditional-fields-in-elementor-form' ),
 				'type' => Controls_Manager::TEXT,
 				'default' => 'email@' . $site_domain,
 				'render_type' => 'none',
@@ -103,7 +103,7 @@ class CFIEF_Email_Conditional_Logic extends Email2 {
 		$widget->add_control(
 			$this->get_control_id( 'email_from_name' ),
 			[
-				'label' => esc_html__( 'From Name', 'elementor-pro' ),
+				'label' => esc_html__( 'From Name', 'conditional-fields-in-elementor-form' ),
 				'type' => Controls_Manager::TEXT,
 				'default' => get_bloginfo( 'name' ),
 				'render_type' => 'none',
@@ -113,22 +113,22 @@ class CFIEF_Email_Conditional_Logic extends Email2 {
 		$widget->add_control(
 			$this->get_control_id( 'email_reply_to' ),
 			[
-				'label' => esc_html__( 'Reply-To', 'elementor-pro' ),
+				'label' => esc_html__( 'Reply-To', 'conditional-fields-in-elementor-form' ),
 				'type' => Controls_Manager::TEXT,
 				'default' => $admin_email,
 				'placeholder' => $admin_email,
 				'render_type' => 'none',
-				'description' => esc_html__( 'You can ID email filed', 'elementor-pro' ),
+				'description' => esc_html__( 'You can ID email filed', 'conditional-fields-in-elementor-form' ),
 			]
 		);
 
 		$widget->add_control(
 			$this->get_control_id( 'email_to_cc' ),
 			[
-				'label' => esc_html__( 'Cc', 'elementor-pro' ),
+				'label' => esc_html__( 'Cc', 'conditional-fields-in-elementor-form' ),
 				'type' => Controls_Manager::TEXT,
 				'default' => '',
-				'title' => esc_html__( 'Separate emails with commas', 'elementor-pro' ),
+				'title' => esc_html__( 'Separate emails with commas', 'conditional-fields-in-elementor-form' ),
 				'render_type' => 'none',
 			]
 		);
@@ -136,10 +136,10 @@ class CFIEF_Email_Conditional_Logic extends Email2 {
 		$widget->add_control(
 			$this->get_control_id( 'email_to_bcc' ),
 			[
-				'label' => esc_html__( 'Bcc', 'elementor-pro' ),
+				'label' => esc_html__( 'Bcc', 'conditional-fields-in-elementor-form' ),
 				'type' => Controls_Manager::TEXT,
 				'default' => '',
-				'title' => esc_html__( 'Separate emails with commas', 'elementor-pro' ),
+				'title' => esc_html__( 'Separate emails with commas', 'conditional-fields-in-elementor-form' ),
 				'render_type' => 'none',
 			]
 		);
@@ -147,7 +147,7 @@ class CFIEF_Email_Conditional_Logic extends Email2 {
 		$widget->add_control(
 			$this->get_control_id( 'form_metadata' ),
 			[
-				'label' => esc_html__( 'Meta Data', 'elementor-pro' ),
+				'label' => esc_html__( 'Meta Data', 'conditional-fields-in-elementor-form' ),
 				'type' => Controls_Manager::SELECT2,
 				'multiple' => true,
 				'label_block' => true,
@@ -161,12 +161,12 @@ class CFIEF_Email_Conditional_Logic extends Email2 {
 					'credit',
 				],
 				'options' => [
-					'date' => esc_html__( 'Date', 'elementor-pro' ),
-					'time' => esc_html__( 'Time', 'elementor-pro' ),
-					'page_url' => esc_html__( 'Page URL', 'elementor-pro' ),
-					'user_agent' => esc_html__( 'User Agent', 'elementor-pro' ),
-					'remote_ip' => esc_html__( 'Remote IP', 'elementor-pro' ),
-					'credit' => esc_html__( 'Credit', 'elementor-pro' ),
+					'date' => esc_html__( 'Date', 'conditional-fields-in-elementor-form' ),
+					'time' => esc_html__( 'Time', 'conditional-fields-in-elementor-form' ),
+					'page_url' => esc_html__( 'Page URL', 'conditional-fields-in-elementor-form' ),
+					'user_agent' => esc_html__( 'User Agent', 'conditional-fields-in-elementor-form' ),
+					'remote_ip' => esc_html__( 'Remote IP', 'conditional-fields-in-elementor-form' ),
+					'credit' => esc_html__( 'Credit', 'conditional-fields-in-elementor-form' ),
 				],
 				'render_type' => 'none',
 			]
@@ -175,13 +175,13 @@ class CFIEF_Email_Conditional_Logic extends Email2 {
 		$widget->add_control(
 			$this->get_control_id( 'email_content_type' ),
 			[
-				'label' => esc_html__( 'Send As', 'elementor-pro' ),
+				'label' => esc_html__( 'Send As', 'conditional-fields-in-elementor-form' ),
 				'type' => Controls_Manager::SELECT,
 				'default' => 'html',
 				'render_type' => 'none',
 				'options' => [
-					'html' => esc_html__( 'HTML', 'elementor-pro' ),
-					'plain' => esc_html__( 'Plain', 'elementor-pro' ),
+					'html' => esc_html__( 'HTML', 'conditional-fields-in-elementor-form' ),
+					'plain' => esc_html__( 'Plain', 'conditional-fields-in-elementor-form' ),
 				],
 			]
 		);
@@ -189,7 +189,7 @@ class CFIEF_Email_Conditional_Logic extends Email2 {
 		$widget->add_control(
 			$control_id_conditional_logic,
 			[
-				'label' => esc_html__( 'Enable Conditional Logic', 'elementor-pro' ),
+				'label' => esc_html__( 'Enable Conditional Logic', 'conditional-fields-in-elementor-form' ),
 				'render_type' => 'none',
 				'type' => Controls_Manager::SWITCHER,
 			]
@@ -339,7 +339,7 @@ class CFIEF_Email_Conditional_Logic extends Email2 {
 			$fields = [
 				'email_to' => get_option( 'admin_email' ),
 				/* translators: %s: Site title. */
-				'email_subject' => sprintf( esc_html__( 'New message from "%s"', 'elementor-pro' ), get_bloginfo( 'name' ) ),
+				'email_subject' => sprintf( esc_html__( 'New message from "%s"', 'conditional-fields-in-elementor-form' ), get_bloginfo( 'name' ) ),
 				'email_content' => '[all-fields]',
 				'email_from_name' => get_bloginfo( 'name' ),
 				'email_from' => get_bloginfo( 'admin_email' ),
@@ -554,4 +554,76 @@ class CFIEF_Email_Conditional_Logic extends Email2 {
         }
             return $rs;
     }
+}
+
+class CFIEF_Email_Conditional_Logic_2 extends CFIEF_Email_Conditional_Logic {
+	public function get_name() {
+		return 'cfief_email_conditional_logic_2';
+	}
+
+	public function get_label() {
+		return esc_html__( 'Email Conditional Logic 2', 'conditional-fields-in-elementor-form' );
+	}
+
+	protected function get_control_id( $control_id ) {
+		return $control_id . '_conditional_logic_2';
+	}
+
+	public function register_settings_section( $widget ) {
+		parent::register_settings_section($widget);
+	}
+}
+
+class CFIEF_Email_Conditional_Logic_3 extends CFIEF_Email_Conditional_Logic {
+	public function get_name() {
+		return 'cfief_email_conditional_logic_3';
+	}
+
+	public function get_label() {
+		return esc_html__( 'Email Conditional Logic 3', 'conditional-fields-in-elementor-form' );
+	}
+
+	protected function get_control_id( $control_id ) {
+		return $control_id . '_conditional_logic_3';
+	}
+
+	public function register_settings_section( $widget ) {		
+		parent::register_settings_section($widget);
+	}
+}
+
+class CFIEF_Email_Conditional_Logic_4 extends CFIEF_Email_Conditional_Logic {
+	public function get_name() {
+		return 'cfief_email_conditional_logic_4';
+	}
+
+	public function get_label() {
+		return esc_html__( 'Email Conditional Logic 4', 'conditional-fields-in-elementor-form' );
+	}
+
+	protected function get_control_id( $control_id ) {
+		return $control_id . '_conditional_logic_4';
+	}
+
+	public function register_settings_section( $widget ) {		
+		parent::register_settings_section($widget);
+	}
+}
+
+class CFIEF_Email_Conditional_Logic_5 extends CFIEF_Email_Conditional_Logic {
+	public function get_name() {
+		return 'cfief_email_conditional_logic_5';
+	}
+
+	public function get_label() {
+		return esc_html__( 'Email Conditional Logic 5', 'conditional-fields-in-elementor-form' );
+	}
+
+	protected function get_control_id( $control_id ) {
+		return $control_id . '_conditional_logic_5';
+	}
+
+	public function register_settings_section( $widget ) {		
+		parent::register_settings_section($widget);
+	}
 }

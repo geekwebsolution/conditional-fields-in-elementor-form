@@ -45,7 +45,7 @@ class CFIEF_Elemntor_HTML1_Field extends \ElementorPro\Modules\Forms\Fields\Fiel
 		$field_controls = [
 			'field_html1' => [
 				'name' => 'field_html1',
-				'label' => esc_html__( 'HTML', 'elementor-pro' ),
+				'label' => esc_html__( 'HTML', 'conditional-fields-in-elementor-form' ),
 				'type' => \Elementor\Controls_Manager::TEXTAREA,
 				'condition' => [
 					'field_type' => $this->get_type(),

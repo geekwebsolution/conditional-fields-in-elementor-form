@@ -5,10 +5,10 @@ use Elementor\Modules\DynamicTags\Module as TagsModule;
 
 class CFIEF_Redirect_Conditional_Logic extends Redirect {
 	public function get_name() {
-		return 'redirect_logic';
+		return 'cfief_redirect_logic';
 	}
 	public function get_label() {
-		return esc_html__( 'Redirect Conditional Logic', 'elementor-pro' );
+		return esc_html__( 'Redirect Conditional Logic', 'conditional-fields-in-elementor-form' );
 	}
 	protected function get_control_id( $control_id ) {
 		return $control_id . '_conditional_logic';
@@ -41,7 +41,7 @@ class CFIEF_Redirect_Conditional_Logic extends Redirect {
 		$widget->add_control(
 			$control_id_conditional_logic,
 			[
-				'label' => esc_html__( 'Enable Conditional Logic', 'elementor-pro' ),
+				'label' => esc_html__( 'Enable Conditional Logic', 'conditional-fields-in-elementor-form' ),
 				'render_type' => 'none',
 				'type' => Controls_Manager::SWITCHER,
 			]
@@ -130,9 +130,9 @@ class CFIEF_Redirect_Conditional_Logic extends Redirect {
 		$widget->add_control(
 			$this->get_control_id( 'redirect_to' ),
 			[
-				'label' => esc_html__( 'Redirect To', 'elementor-pro' ),
+				'label' => esc_html__( 'Redirect To', 'conditional-fields-in-elementor-form' ),
 				'type' => Controls_Manager::TEXT,
-				'placeholder' => esc_html__( 'https://your-link.com', 'elementor-pro' ),
+				'placeholder' => esc_html__( 'https://your-link.com', 'conditional-fields-in-elementor-form' ),
 				'dynamic' => [
 					'active' => true,
 					'categories' => [
@@ -222,89 +222,153 @@ class CFIEF_Redirect_Conditional_Logic extends Redirect {
 	function elementor_conditional_logic_check_single($value_id,$operator,$value){
         $rs = false;
         switch($operator) {
-              case "==":
-                    if( $value_id == $value){
-                        $rs = true;
-                    }   
-                break;
-              case "!=":
-                    if( $value_id != $value){
-                            $rs = true;
-                    }
-                    break;
-              case "e":
-                    if( $value_id == ""){
-                            $rs = true;
-                    }
-                    break;
-              case "!e":
-                    if( $value_id != ""){
-                            $rs = true;
-                    }
-                    break;
-              case "c":
-                    if( str_contains($value_id,$value) ){
-                        $rs = true;
-                    }
-                    break;
-               case "!c":
-                    if( !str_contains($value_id,$value) ){
-                        $rs = true;
-                    }
-                break;
-               case "^":
-                    if( str_starts_with($value_id,$value) ){
-                        $rs = true;
-                    }
-                    break;
-               case "~":
-                    if( str_ends_with($value_id,$value) ){
-                        $rs = true;
-                    }
-                    break;
-               case ">":
-                    if( $value_id > $value){
-                        $rs = true;
-                    }
-                    break;
-                case "<":
-                    if( $value_id < $value){
-                            $rs = true;
-                    }
-                    break;
-                case "array":
-                    $values= array_map('trim', explode(',', $value));
-                    if( in_array($value_id,$values)){
-                            $rs = true;
-                    }
-                    break;
-                case "!array":
-                    $values= array_map('trim', explode(',', $value));
-                    if( !in_array($value_id,$values)){
-                            $rs = true;
-                    }
-                    break;
-                case "array_contain":
-                    $values= array_map('trim', explode(',', $value));
-                    foreach($values as $vl){
-                        if( str_contains($value_id,$vl) ){
-                            $rs = true;
-                        }
-                    }
-                    break;
-                case "!array_contain":
-                    $values= array_map('trim', explode(',', $value));
+            case "==":
+                if( $value_id == $value){
                     $rs = true;
-                    foreach($values as $vl){
-                        if( str_contains($value_id,$vl) ){
-                            $rs = false;
-                           
-                        }
-                    }    
-                    break;   
-              default: 
+                }   
+            break;
+            case "!=":
+                if( $value_id != $value){
+                        $rs = true;
+                }
                 break;
-            }
-            return $rs;
+            case "e":
+                if( $value_id == ""){
+                        $rs = true;
+                }
+                break;
+            case "!e":
+                if( $value_id != ""){
+                        $rs = true;
+                }
+                break;
+            case "c":
+                if( str_contains($value_id,$value) ){
+                    $rs = true;
+                }
+                break;
+            case "!c":
+                if( !str_contains($value_id,$value) ){
+                    $rs = true;
+                }
+            break;
+            case "^":
+                if( str_starts_with($value_id,$value) ){
+                    $rs = true;
+                }
+                break;
+            case "~":
+                if( str_ends_with($value_id,$value) ){
+                    $rs = true;
+                }
+                break;
+            case ">":
+                if( $value_id > $value){
+                    $rs = true;
+                }
+                break;
+            case "<":
+                if( $value_id < $value){
+                        $rs = true;
+                }
+                break;
+            case "array":
+                $values= array_map('trim', explode(',', $value));
+                if( in_array($value_id,$values)){
+                        $rs = true;
+                }
+                break;
+            case "!array":
+                $values= array_map('trim', explode(',', $value));
+                if( !in_array($value_id,$values)){
+                        $rs = true;
+                }
+                break;
+            case "array_contain":
+                $values= array_map('trim', explode(',', $value));
+                foreach($values as $vl){
+                    if( str_contains($value_id,$vl) ){
+                        $rs = true;
+                    }
+                }
+                break;
+            case "!array_contain":
+                $values= array_map('trim', explode(',', $value));
+                $rs = true;
+                foreach($values as $vl){
+                    if( str_contains($value_id,$vl) ){
+                        $rs = false;
+                        
+                    }
+                }    
+                break;   
+            default: 
+            break;
+        }
+        return $rs;
     }
+}
+
+class CFIEF_Redirect_Conditional_Logic_2 extends CFIEF_Redirect_Conditional_Logic {
+	public function get_name() {
+		return 'cfief_redirect_conditional_logic_2';
+	}
+
+	public function get_label() {
+		return esc_html__( 'Redirect Conditional Logic 2', 'conditional-fields-in-elementor-form' );
+	}
+	protected function get_control_id( $control_id ) {
+		return $control_id . '_conditional_logic_2';
+	}
+    public function register_settings_section( $widget ) {
+		parent::register_settings_section($widget);
+	}
+}
+
+class CFIEF_Redirect_Conditional_Logic_3 extends CFIEF_Redirect_Conditional_Logic {
+	public function get_name() {
+		return 'cfief_redirect_conditional_logic_3';
+	}
+
+	public function get_label() {
+		return esc_html__( 'Redirect Conditional Logic 3', 'conditional-fields-in-elementor-form' );
+	}
+	protected function get_control_id( $control_id ) {
+		return $control_id . '_conditional_logic_3';
+	}
+    public function register_settings_section( $widget ) {
+		parent::register_settings_section($widget);
+	}
+}
+
+class CFIEF_Redirect_Conditional_Logic_4 extends CFIEF_Redirect_Conditional_Logic {
+	public function get_name() {
+		return 'cfief_redirect_conditional_logic_4';
+	}
+
+	public function get_label() {
+		return esc_html__( 'Redirect Conditional Logic 4', 'conditional-fields-in-elementor-form' );
+	}
+	protected function get_control_id( $control_id ) {
+		return $control_id . '_conditional_logic_4';
+	}
+    public function register_settings_section( $widget ) {
+		parent::register_settings_section($widget);
+	}
+}
+
+class CFIEF_Redirect_Conditional_Logic_5 extends CFIEF_Redirect_Conditional_Logic {
+	public function get_name() {
+		return 'cfief_redirect_conditional_logic_5';
+	}
+
+	public function get_label() {
+		return esc_html__( 'Redirect Conditional Logic 5', 'conditional-fields-in-elementor-form' );
+	}
+	protected function get_control_id( $control_id ) {
+		return $control_id . '_conditional_logic_5';
+	}
+    public function register_settings_section( $widget ) {
+		parent::register_settings_section($widget);
+	}
 }

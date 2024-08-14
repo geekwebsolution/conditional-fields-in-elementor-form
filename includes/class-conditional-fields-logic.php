@@ -395,6 +395,15 @@ class CFIEF_Conditional_Logic {
 		include plugin_dir_path( __FILE__ ) . 'class-redirect-action-logic.php';
 
 	    $form_actions_registrar->register( new CFIEF_Email_Conditional_Logic() );
+	    $form_actions_registrar->register( new CFIEF_Email_Conditional_Logic_2() );
+	    $form_actions_registrar->register( new CFIEF_Email_Conditional_Logic_3() );
+	    $form_actions_registrar->register( new CFIEF_Email_Conditional_Logic_4() );
+	    $form_actions_registrar->register( new CFIEF_Email_Conditional_Logic_5() );
+
 	    $form_actions_registrar->register( new CFIEF_Redirect_Conditional_Logic() );
+	    $form_actions_registrar->register( new CFIEF_Redirect_Conditional_Logic_2() );
+	    $form_actions_registrar->register( new CFIEF_Redirect_Conditional_Logic_3() );
+	    $form_actions_registrar->register( new CFIEF_Redirect_Conditional_Logic_4() );
+	    $form_actions_registrar->register( new CFIEF_Redirect_Conditional_Logic_5() );
 	}
 }
