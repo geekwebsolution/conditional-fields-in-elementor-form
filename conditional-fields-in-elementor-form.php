@@ -31,9 +31,9 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-conditional-fields-form.ph
 /**
  * Begins execution of the plugin.
  */
-function run_conditional_fields_in_elementor_form() {
+function cfief_run_conditional_fields_in_elementor_form() {
 
-	$plugin = new Conditional_Fields_In_Elementor_Form();
+	$plugin = new cfief_Conditional_Fields_In_Elementor_Form();
 	$plugin->run();
 }
-run_conditional_fields_in_elementor_form();
+cfief_run_conditional_fields_in_elementor_form();

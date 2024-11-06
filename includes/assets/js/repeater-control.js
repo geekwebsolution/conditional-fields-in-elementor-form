@@ -1,6 +1,6 @@
 (function($) {
     "use strict";
-    window.addEventListener('elementor/init', function () {
+    window.addEventListener('cfief_elementor/init', function () {
       var RepeaterControlItemView = elementor.modules.controls.Repeater.extend({
         className: function className() {
           return elementor.modules.controls.Repeater.prototype.className.apply(this, arguments) + ' elementor-control-type-repeater';

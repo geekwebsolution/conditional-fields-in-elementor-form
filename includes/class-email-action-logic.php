@@ -394,7 +394,7 @@ class CFIEF_Email_Conditional_Logic extends Email2 {
 			 *
 			 * @param string|array $headers Additional headers.
 			 */
-			$headers = apply_filters( 'elementor_pro/forms/wp_mail_headers', $headers );
+			$headers = apply_filters( 'cfief_elementor_pro/forms/wp_mail_headers', $headers );
 
 			/**
 			 * Email content.
@@ -405,7 +405,7 @@ class CFIEF_Email_Conditional_Logic extends Email2 {
 			 *
 			 * @param string $email_content Email content.
 			 */
-			$fields['email_content'] = apply_filters( 'elementor_pro/forms/wp_mail_message', $fields['email_content'] );
+			$fields['email_content'] = apply_filters( 'cfief_elementor_pro/forms/wp_mail_message', $fields['email_content'] );
 
 			$email_sent = wp_mail( $fields['email_to'], $fields['email_subject'], $fields['email_content'], $headers . $cc_header );
 			
@@ -426,7 +426,7 @@ class CFIEF_Email_Conditional_Logic extends Email2 {
 			 * @param array       $settings Form settings.
 			 * @param Form_Record $record   An instance of the form record.
 			 */
-			do_action( 'elementor_pro/forms/mail_sent', $settings, $record );
+			do_action( 'cfief_elementor_pro/forms/mail_sent', $settings, $record );
 
 			if ( ! $email_sent ) {
 				$message = Ajax_Handler::get_default_message( Ajax_Handler::SERVER_ERROR, $settings );

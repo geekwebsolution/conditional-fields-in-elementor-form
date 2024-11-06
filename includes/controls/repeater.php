@@ -128,7 +128,7 @@ class CFIEF_Repeater_Control extends \Elementor\Control_Repeater {
 				<button class="elementor-button elementor-repeater-add" type="button">
 					<i class="eicon-plus" aria-hidden="true"></i>
 					<# if ( data.button_text ) { #>
-						<?php echo esc_html__( '{{{ data.button_text }}}', 'elementor' ); ?>
+						<?php echo esc_html__( '{{{ data.button_text }}}', 'conditional-fields-in-elementor-form' ); ?>
 					<# } else { #>
 						<?php echo esc_html__( 'Add', "conditional-fields-in-elementor-form" ); ?>
 					<# } #>

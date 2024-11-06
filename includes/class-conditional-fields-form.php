@@ -6,7 +6,7 @@ use ElementorPro\Plugin;
 /**
  * The core plugin class.
  */
-class Conditional_Fields_In_Elementor_Form {
+class cfief_Conditional_Fields_In_Elementor_Form {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -109,15 +109,15 @@ class Conditional_Fields_In_Elementor_Form {
 		
 		$plugin_conditional_logic = new CFIEF_Conditional_Logic( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->add_action( 'elementor-pro/forms/pre_render', $plugin_conditional_logic, 'form_pre_render', 10, 3 );
-        $this->loader->add_action( 'elementor/element/form/section_form_fields/before_section_end', $plugin_conditional_logic, 'add_conditional_field_control', PHP_INT_MAX, 2 );
-        $this->loader->add_action( 'elementor/controls/register', $plugin_conditional_logic, 'form_fields_register_controls' );
-        $this->loader->add_action( 'elementor_pro/forms/validation/text', $plugin_conditional_logic, 'form_fields_validation', 9, 3 );
-        $this->loader->add_filter( 'elementor_pro/forms/record/actions_before', $plugin_conditional_logic, 'custom_actions', 10, 2 );
+		$this->loader->add_action( 'cfief_elementor-pro/forms/pre_render', $plugin_conditional_logic, 'form_pre_render', 10, 3 );
+        $this->loader->add_action( 'cfief_elementor/element/form/section_form_fields/before_section_end', $plugin_conditional_logic, 'add_conditional_field_control', PHP_INT_MAX, 2 );
+        $this->loader->add_action( 'cfief_elementor/controls/register', $plugin_conditional_logic, 'form_fields_register_controls' );
+        $this->loader->add_action( 'cfief_elementor_pro/forms/validation/text', $plugin_conditional_logic, 'form_fields_validation', 9, 3 );
+        $this->loader->add_filter( 'cfief_elementor_pro/forms/record/actions_before', $plugin_conditional_logic, 'custom_actions', 10, 2 );
 
-		$this->loader->add_action( 'elementor_pro/forms/fields/register', $plugin_conditional_logic, 'add_new_html1_field' );
-		$this->loader->add_filter( 'elementor_pro/forms/field_types', $plugin_conditional_logic, 'remove_html_field_type' );
-		$this->loader->add_action( 'elementor_pro/forms/actions/register', $plugin_conditional_logic, 'register_new_form_actions' );
+		$this->loader->add_action( 'cfief_elementor_pro/forms/fields/register', $plugin_conditional_logic, 'add_new_html1_field' );
+		$this->loader->add_filter( 'cfief_elementor_pro/forms/field_types', $plugin_conditional_logic, 'remove_html_field_type' );
+		$this->loader->add_action( 'cfief_elementor_pro/forms/actions/register', $plugin_conditional_logic, 'register_new_form_actions' );
 	}
 
 	/**
@@ -133,7 +133,7 @@ class Conditional_Fields_In_Elementor_Form {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-		$this->loader->add_action( 'elementor/editor/before_enqueue_scripts', $plugin_admin, 'add_lib_backend' );
+		$this->loader->add_action( 'cfief_elementor/editor/before_enqueue_scripts', $plugin_admin, 'add_lib_backend' );
 	}
 
 	/**

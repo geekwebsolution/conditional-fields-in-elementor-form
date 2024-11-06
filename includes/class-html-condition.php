@@ -11,24 +11,32 @@ class CFIEF_Elemntor_HTML1_Field extends \ElementorPro\Modules\Forms\Fields\Fiel
 		return 'html1';
 	}
 	public function editor_preview_footer() {
-		add_action( 'wp_footer', array($this,"telephone_content_template_script"));
+		add_action( 'wp_enqueue_scripts', array($this,"telephone_content_template_script") );
 	}
-	function telephone_content_template_script(){
-		?>
-		<script>
-		jQuery( document ).ready( () => {
-			elementor.hooks.addFilter(
-				'elementor_pro/forms/content_template/field/html1',
-				function ( inputField, item, i ) {
-					return `<div class="elementor-field-html-type">${item.field_html1}</div>`;
-				}, 10, 3
-			);
-		});
-		</script>
-		<?php
+
+
+	function telephone_content_template_script() {
+
+		// Register and enqueue the main script
+		wp_register_script(  $this->plugin_name . '-telephone_content_template_script', plugins_url( 'js/my-plugin-script.js', __FILE__ ), array( 'jquery' ), '1.0', true );
+		wp_enqueue_script(  $this->plugin_name . '-telephone_content_template_script' );
+	
+		// Add inline script
+		$inline_script = '
+			jQuery(document).ready(function() {
+				elementor.hooks.addFilter(
+					"cfief_elementor_pro/forms/content_template/field/html1",
+					function(inputField, item, i) {
+						return `<div class="elementor-field-html-type">${item.field_html1}</div>`;
+					}, 10, 3
+				);
+			});
+		';
+		wp_add_inline_script(  $this->plugin_name . '-telephone_content_template_script', $inline_script );
 	}
+
 	public function get_name() {
-		return esc_html__( 'HTML', 'elementor-telephone' );
+		return esc_html__( 'HTML', 'cfief_elementor-telephone' );
 	}
 
 	/**
@@ -81,6 +89,6 @@ class CFIEF_Elemntor_HTML1_Field extends \ElementorPro\Modules\Forms\Fields\Fiel
 
 	public function __construct() {
 		parent::__construct();
-		add_action( 'elementor/preview/init', array( $this, 'editor_preview_footer' ) );
+		add_action( 'cfief_elementor/preview/init', array( $this, 'editor_preview_footer' ) );
 	}
 }

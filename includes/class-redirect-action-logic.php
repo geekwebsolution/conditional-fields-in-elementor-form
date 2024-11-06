@@ -143,7 +143,7 @@ class CFIEF_Redirect_Conditional_Logic extends Redirect {
 				],
 				'label_block' => true,
 				'render_type' => 'none',
-				'classes' => 'elementor-control-direction-ltr',
+				'classes' => 'cfief_elementor-control-direction-ltr',
 			]
 		);
 

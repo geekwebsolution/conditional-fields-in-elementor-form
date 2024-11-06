@@ -2,14 +2,14 @@
 	'use strict';
 
 	$( document ).ready( function () {
-    	jQuery( document ).on( 'elementor/popup/show', () => {
+    	jQuery( document ).on( 'cfief_elementor/popup/show', () => {
 			$( ".elementor-form" ).each(function( index ) {
 			  var form = $(this).closest(".elementor-widget-container");
 			  elementor_conditional_logic_load(form);
 			});
 		} );
 
-		window.addEventListener( 'elementor/frontend/init', () => {
+		window.addEventListener( 'cfief_elementor/frontend/init', () => {
 			$( ".elementor-form" ).each(function( index ) {
 			  var form = $(this).closest(".elementor-widget-container");
 			  elementor_conditional_logic_load(form);
