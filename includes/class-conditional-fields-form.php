@@ -109,7 +109,7 @@ class cfief_Conditional_Fields_In_Elementor_Form {
 		
 		$plugin_conditional_logic = new CFIEF_Conditional_Logic( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->add_action( 'cfief_elementor-pro/forms/pre_render', $plugin_conditional_logic, 'form_pre_render', 10, 3 );
+		$this->loader->add_action( 'cfief_elementor_pro/forms/pre_render', $plugin_conditional_logic, 'form_pre_render', 10, 3 );
         $this->loader->add_action( 'cfief_elementor/element/form/section_form_fields/before_section_end', $plugin_conditional_logic, 'add_conditional_field_control', PHP_INT_MAX, 2 );
         $this->loader->add_action( 'cfief_elementor/controls/register', $plugin_conditional_logic, 'form_fields_register_controls' );
         $this->loader->add_action( 'cfief_elementor_pro/forms/validation/text', $plugin_conditional_logic, 'form_fields_validation', 9, 3 );
