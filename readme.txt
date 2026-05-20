@@ -55,7 +55,7 @@ PLUGIN FEATURES
 
 == Changelog ==
 
-= 1.0.0 =
+= 1.2.0 =
  Fixed bugs
  Added Updater functionality
 
