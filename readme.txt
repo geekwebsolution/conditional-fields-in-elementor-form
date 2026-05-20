@@ -5,7 +5,7 @@ Requires PHP: 7.4
 Requires at least: 6.3
 Tested up to: 6.6
 Requires Plugins: elementor, elementor-pro
-Stable tag: 1.0.0
+Stable tag: 1.2.0
 Elementor tested up to: 3.24.0
 Elementor Pro tested up to: 3.24.0
 License: GPLv2 or later
@@ -54,6 +54,10 @@ PLUGIN FEATURES
 5. Conditionally send email based on user input
 
 == Changelog ==
+
+= 1.0.0 =
+ Fixed bugs
+ Added Updater functionality
 
 = 1.0.0 =
  Initial release

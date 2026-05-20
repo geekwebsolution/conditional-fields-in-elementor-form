@@ -13,6 +13,8 @@ class CFIEF_Conditional_Logic {
 	 * @param      string    $plugin_name       The name of the plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
+    private $plugin_name;
+    private $version;
 	public function __construct( $plugin_name, $version ) {
 
 		$this->plugin_name = $plugin_name;
