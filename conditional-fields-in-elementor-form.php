@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Conditional Fields in Elementor Form
  * Description:       Conditional Fields in Elementor Form helps you to show or hide fields based on input values from other fields using conditional logic.
- * Version:           1.0.0
+ * Version:           1.2.0
  * Author:            Geek Code Lab
  * Author URI:        https://geekcodelab.com/
  * Requires Plugins:  elementor, elementor-pro
@@ -20,7 +20,25 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Defines plugin version.
  */
-define( 'CFIEF_VERSION', '1.0.0' );
+define( 'CFIEF_VERSION', '1.2.0' );
+
+if (!defined('CFIEF_PLUGIN_URL'))
+	define('CFIEF_PLUGIN_URL', plugins_url() . '/' . basename(dirname(__FILE__)));
+
+if (!defined("CFIEF_PLUGIN_DIR"))
+	define("CFIEF_PLUGIN_DIR", plugin_basename(__DIR__));
+
+if (!defined("CFIEF_PLUGIN_BASENAME"))
+	define("CFIEF_PLUGIN_BASENAME", plugin_basename(__FILE__));
+
+if (!defined('CFIEF_PLUGIN_DIR_PATH'))
+	define('CFIEF_PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
+
+require(CFIEF_PLUGIN_DIR_PATH . 'updater/updater.php');
+
+register_activation_hook(__FILE__, 'cfief_updater_activate');
+
+add_action('upgrader_process_complete', 'cfief_updater_activate');
 
 /**
  * The core plugin class that is used to define internationalization,
